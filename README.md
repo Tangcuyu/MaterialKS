@@ -1,4 +1,5 @@
-keystoneTS
+Material with Angular5 & keystoneTS
 =====================
 
-Powered by [KeystoneJS](http://keystonejs.com).
+Material Dashboard Angular5 with Keystone+TypeScript
+
