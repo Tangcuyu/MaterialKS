@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/ --clean --sort --format namespaced-json"
   },
   "engines": {
     "node": "6.11.1",
@@ -30,6 +31,8 @@
     "@angular/platform-browser-dynamic": "5.2.9",
     "@angular/platform-server": "5.2.9",
     "@angular/router": "5.2.9",
+    "@ngx-translate/core": "^9.1.1",
+    "@ngx-translate/http-loader": "^2.0.1",
     "ajv": "6.4.0",
     "arrive": "2.4.1",
     "bootstrap": "4.1.0",
@@ -52,6 +55,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "5.2.9",
     "@angular/language-service": "5.2.9",
+    "@biesbjerg/ngx-translate-extract": "^2.3.4",
     "@types/bootstrap": "3.3.32",
     "@types/chartist": "0.9.34",
     "@types/googlemaps": "^3.30.8",

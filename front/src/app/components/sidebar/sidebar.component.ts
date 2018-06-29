@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -26,9 +27,10 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngOnInit() {
+    // console.log(this.translate.getDefaultLang());
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {
