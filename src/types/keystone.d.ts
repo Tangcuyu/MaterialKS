@@ -564,6 +564,12 @@ declare module "keystone" {
          */
         Types: any;
 
+        /**
+         * The keystone Storage types
+        */
+        Storage: any;
+        expandPath: any;
+
         session: any;
         Email: any;
     }
