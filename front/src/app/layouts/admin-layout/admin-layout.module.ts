@@ -15,6 +15,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { SharedModule } from '../../shared-module/shared-module.module';
+// import ng2-file-upload module
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -34,6 +36,7 @@ import {
     MatInputModule,
     MatTooltipModule,
     SharedModule,
+    FileUploadModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
