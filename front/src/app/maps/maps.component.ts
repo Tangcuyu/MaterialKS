@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
-declare const google: any;
+// declare const google: any;
 declare const URL = '/api/fileupload/create';
 
-interface Marker {
+/* interface Marker {
     lat: number;
     lng: number;
     label?: string;
     draggable?: boolean;
-}
+} */
 @Component({
     selector: 'app-maps',
     templateUrl: './maps.component.html',
