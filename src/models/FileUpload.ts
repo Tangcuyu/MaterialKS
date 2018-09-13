@@ -20,12 +20,12 @@ const myStorage = new keystone.Storage(
 );
 
 FileUpload.add({
-      name: { type: Types.Key, index: true },
+      // name: { type: Types.Key, index: true },
       file: {
             type: Types.File,
             storage: myStorage
       },
-      createdTimeStamp: { type: String },
+      /* createdTimeStamp: { type: String },
       alt1: { type: String },
       attributes1: { type: String },
       category: { type: String },      // Used to categorize widgets.
@@ -33,7 +33,7 @@ FileUpload.add({
       parent: { type: String },
       children: { type: String },
       url: { type: String },
-      fileType: { type: String }
+      fileType: { type: String } */
 
 });
 

@@ -17,8 +17,8 @@ import { HttpClient } from '@angular/common/http';
 import { SharedModule } from '../../shared-module/shared-module.module';
 // import ng2-file-upload module
 import { FileUploadModule } from 'ng2-file-upload';
-
-
+// import ngx-uploader
+import { NgxUploaderModule } from 'ngx-uploader';
 
 import {
   MatButtonModule,
@@ -35,6 +35,7 @@ import {
     MatRippleModule,
     MatInputModule,
     MatTooltipModule,
+    NgxUploaderModule,
     SharedModule,
     FileUploadModule,
     TranslateModule.forChild({

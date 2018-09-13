@@ -11,7 +11,7 @@
           <div class="row">
               <div class="col-md-12">
                   <div class="card-body">
-                      <div class="iframe-container d-none d-lg-block">
+                      <!-- <div class="iframe-container d-none d-lg-block">
                           <iframe src="https://design.google.com/icons/">
                               <p>Your browser does not support iframes.</p>
                           </iframe>
@@ -20,7 +20,22 @@
                           <h5>The icons are visible on Desktop mode inside an iframe. Since the iframe is not working on Mobile and Tablets please visit the icons on their original page on Google. Check the
                               <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>
                           </h5>
-                      </div>
+                      </div> -->
+                    <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                        [ngClass]="{ 'is-drop-over': dragOver }">
+                        <h1>Drag &amp; Drop</h1>
+                    </div>
+                    
+                    <label class="upload-button">
+                        <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                            multiple>
+                        or choose file(s)
+                    </label>
+                    
+                    <button type="button" class="start-upload-btn" (click)="startUpload()">
+                        Start Upload
+                    </button>
+                    
                   </div>
               </div>
           </div>
