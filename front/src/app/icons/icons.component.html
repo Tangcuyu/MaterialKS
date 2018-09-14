@@ -29,10 +29,9 @@
                     <label class="upload-button">
                         <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
                             multiple>
-                        or choose file(s)
                     </label>
                     
-                    <button type="button" class="start-upload-btn" (click)="startUpload()">
+                    <button mat-raised-button type="button" class="btn btn-danger" (click)="startUpload()">
                         Start Upload
                     </button>
                     
