@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { RemoteValidatorDirective } from './remote-validator.directive';
 
 const sharedModule = [
   CommonModule,
@@ -8,8 +9,13 @@ const sharedModule = [
 ];
 @NgModule({
   imports: sharedModule,
-  declarations: [],
-  exports: sharedModule
+  declarations: [
+    RemoteValidatorDirective
+  ],
+  exports: [
+    sharedModule,
+    RemoteValidatorDirective
+  ]
 })
 
 export class SharedModule { }

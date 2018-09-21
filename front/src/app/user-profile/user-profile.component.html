@@ -8,78 +8,34 @@
                       <p class="card-category">Complete your profile</p>
                   </div>
                   <div class="card-body">
-                      <form>
-                          <div class="row">
-                              <div class="col-md-5">
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Company (disabled)" disabled>
-                                  </mat-form-field>
-                              </div>
-                              <div class="col-md-3">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Username">
-                                  </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Email address" type="email">
-                                  </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Fist Name" type="text">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Last Name" type="text">
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Adress" type="text">
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="City" type="text">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Country" type="text">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Postal Code" type="text">
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                <label>About Me</label>
-                                <mat-form-field class="example-full-width">
-                                   <textarea matInput placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."></textarea>
-                                 </mat-form-field>
-                                  <!-- <div class="form-group">
-
-                                      <div class="form-group">
-                                          <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                          <textarea class="form-control" rows="5"></textarea>
-                                      </div>
-                                  </div> -->
-                              </div>
-                          </div>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
-                          <div class="clearfix"></div>
-                      </form>
+                    <form #f="ngForm" name="formUser" class="row">
+                        <div class="form-group row col-sm-12">
+                            <label for="user-name">Name:</label>
+                            <input type="text" name="userName" #name="ngModel" class="form-control" id="user-name" placeholder="Enter user name. Must be unique."
+                                [(ngModel)]="username" abeRemoteValidator="username" [ngModelOptions]="{updateOn: 'blur'}"
+                                abeBusyIndicator required>
+                            <div *ngIf="name.touched">
+                                <label *ngIf="name.control.hasError('required') && (name.touched)" class="alert alert-danger validation-message">Name is
+                                    required</label>
+                                <label *ngIf="name.control.hasError('username')" class="alert alert-danger validation-message">A user
+                                    with this name already exists.</label>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row col-sm-12">
+                            <label for="user-title">Title:</label>
+                            <input type="text" name="userTitle" class="form-control" #title="ngModel" id="user-title" placeholder="What would be the user title?"
+                                [(ngModel)]="usertitle" minlength="5" maxlength="20" required>
+                            <div *ngIf="title.touched">
+                                <label *ngIf="title.control.hasError('required')" class="alert alert-danger validation-message">Title is
+                                    required.</label>
+                                <label *ngIf="(title.control.hasError('minlength') || title.control.hasError('maxlength')) && title.value.length > 0"
+                                    class="alert alert-danger validation-message">Title should be between 5 and 20 characters long.</label>
+                            </div>
+                            
+                        </div>
+                    </form>
+                    {{username}}
                   </div>
               </div>
           </div>

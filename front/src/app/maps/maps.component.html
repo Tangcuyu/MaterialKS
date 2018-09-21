@@ -42,12 +42,6 @@
                     <td>
                         <strong>{{ item?.file?.name }}</strong>
                     </td>
-                    <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-                    <td *ngIf="uploader.isHTML5">
-                        <div class="progress" style="margin-bottom: 0;">
-                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-                        </div>
-                    </td>
                     <td class="text-center">
                         <span *ngIf="item.isSuccess">
                             <i class="glyphicon glyphicon-ok"></i>
@@ -93,4 +87,20 @@
         </div>
 
     </div>
+
+    <form #f="ngForm" name="formWorkout" class="row">
+        <div class="form-group row">
+            <label for="workout-name">Name:</label>
+            <input type="text" name="workoutName" #name="ngModel" class="form-control" id="workout-name" placeholder="Enter workout name. Must be unique."
+                [(ngModel)]="uploader" abeRemoteValidator="workoutname"
+                [ngModelOptions]="{updateOn: 'blur'}" abeBusyIndicator required>
+            <div *ngIf="name.touched">
+                <label *ngIf="name.control.hasError('required')" class="alert alert-danger validation-message">Name is required</label>
+                <label *ngIf="name.control.hasError('workoutname')" class="alert alert-danger validation-message">A workout
+                    with this name already exists.</label>
+            </div>
+        </div>
+    </form>
+
+
 </div>

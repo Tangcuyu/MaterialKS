@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 
+
 // import { DashboardComponent } from './dashboard/dashboard.component';
 // import { UserProfileComponent } from './user-profile/user-profile.component';
 // import { TableListComponent } from './table-list/table-list.component';
@@ -29,6 +30,8 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
+import { SharedModule } from './shared-module/shared-module.module'
+
 
 @NgModule({
   imports: [
@@ -38,6 +41,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    SharedModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
