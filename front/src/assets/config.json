@@ -1,0 +1,4 @@
+{
+    "usersUrl": "api/auth/getUser",
+    "imgfile": "images/logo-email.gif"
+}

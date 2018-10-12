@@ -17,7 +17,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "itsi",
       "styles": [
           "../node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
           "./assets/scss/material-dashboard.scss",

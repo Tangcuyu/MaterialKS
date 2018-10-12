@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+// import core serivces for our app
+import { CoreModulesModule } from './core-modules/core-modules.module'
+
 // import ngx-translate and the http loader
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -30,7 +33,8 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
-import { SharedModule } from './shared-module/shared-module.module'
+import { SharedModule } from './shared-module/shared-module.module';
+import { UserAuthComponent } from './auth/user-auth/user-auth.component'
 
 
 @NgModule({
@@ -42,6 +46,7 @@ import { SharedModule } from './shared-module/shared-module.module'
     RouterModule,
     AppRoutingModule,
     SharedModule,
+    CoreModulesModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
@@ -56,6 +61,7 @@ import { SharedModule } from './shared-module/shared-module.module'
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    UserAuthComponent,
 
   ],
   providers: [],

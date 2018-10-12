@@ -1,0 +1,82 @@
+<div class="wrapper wrapper-full-page">
+  <div class="container login-page off-canvas-sidebar" style="background-image: url('/front/dist/assets/img/login.jpg');background-size: cover;background-position: top center;">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+        <form>
+          <div class="card card-login">
+            <div class="card-header card-header-rose text-center">
+              <h4 class="card-title">Log in</h4>
+              <div class="social-line">
+                <a class="btn btn-just-icon btn-link btn-white" href="">
+                  <i class="fa fa-facebook-square"></i>
+                </a>
+                <a class="btn btn-just-icon btn-link btn-white" href="">
+                  <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn btn-just-icon btn-link btn-white" href="">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-description text-center">Or Be Classical</p>
+              <span class="bmd-form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">face</i>
+                    </span>
+                  </div>
+                  <input type="text" name="username" class="form-control" id="user-name" placeholder="First name...">
+                  <div *ngIf="">
+                    <label *ngIf="" class="alert alert-danger validation-message">Name
+                      is
+                      required</label>
+                    <label *ngIf="" class="alert alert-danger validation-message">A user
+                      with this name already exists.</label>
+                  </div>
+                </div>
+              </span>
+              <span class="bmd-form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">email</i>
+                    </span>
+                  </div>
+                  <input type="email" name="email" class="form-control" id="user-email" placeholder="Email...">
+                  <div *ngIf="">
+                    <label *ngIf="" class="alert alert-danger validation-message">Email
+                      is
+                      required</label>
+                    <label *ngIf="" class="alert alert-danger validation-message">A user
+                      with this email already exists.</label>
+                  </div>
+                </div>
+              </span>
+              <span class="bmd-form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <input type="password" name="password" class="form-control" id="user-password" placeholder="Password...">
+                  <div *ngIf="">
+                    <label *ngIf="" class="alert alert-danger validation-message">Password
+                      is
+                      required</label>
+                  </div>
+                </div>
+              </span>
+            </div>
+            <div class="card-footer justify-content-center">
+              <a class="btn btn-rose btn-link btn-lg" href="#pable">Lets Go</a>
+            </div>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,9 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
   }
 
+  validateUserName = (name: string): Promise<boolean> => {
+    return Promise.resolve(true);
+  }
   save(formWorkout: any) {
     this.submitted = true;
     if (!formWorkout.valid) { return; }
