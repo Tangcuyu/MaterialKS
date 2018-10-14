@@ -34,7 +34,8 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 import { SharedModule } from './shared-module/shared-module.module';
-import { UserAuthComponent } from './auth/user-auth/user-auth.component'
+import { UserAuthComponent } from './auth/user-auth/user-auth.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 
 @NgModule({
@@ -44,7 +45,6 @@ import { UserAuthComponent } from './auth/user-auth/user-auth.component'
     HttpClientModule,
     ComponentsModule,
     RouterModule,
-    AppRoutingModule,
     SharedModule,
     CoreModulesModule,
     AgmCoreModule.forRoot({
@@ -56,12 +56,14 @@ import { UserAuthComponent } from './auth/user-auth/user-auth.component'
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     UserAuthComponent,
+    PageNotFoundComponent,
 
   ],
   providers: [],

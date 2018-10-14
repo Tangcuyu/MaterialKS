@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../../core-modules/user-service.service';
-import { IUserConfig } from '../../core-modules/model'
+import { IUserConfig } from '../../core-modules/model';
+
 
 @Component({
   selector: 'itsi-user-auth',
   templateUrl: './user-auth.component.html',
-  styleUrls: ['./user-auth.component.scss']
+  styleUrls: ['./user-auth.component.scss'],
 })
 export class UserAuthComponent implements OnInit {
   userConfig: IUserConfig;
   headers: string[];
+  //  @HostBinding('@routeAnimation') routeAnimation = true;
+  // @HostBinding('style.display') display = 'block';
+  // @HostBinding('style.position') position = 'absolute';
 
   constructor(private userService: UserServiceService ) { }
 

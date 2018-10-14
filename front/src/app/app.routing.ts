@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
+import { BrowserModule, enableDebugTools  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { UserAuthComponent } from './auth/user-auth/user-auth.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+
 
 const routes: Routes = [
   {
     path: 'auth',
     component: UserAuthComponent,
+    data: { animation: 'auth' }
   },
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'dashboard',
+    data: { animation: 'dashboard' },
     pathMatch: 'full',
   }, {
     path: '',
@@ -37,7 +40,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {enableTracing: true})
   ],
   exports: [
   ],

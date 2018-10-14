@@ -1,12 +1,16 @@
 import { Component, OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './animations';
 
 @Component({
-  selector: 'app-root',
+  selector: 'itsi-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [slideInAnimation]
 })
 export class AppComponent implements OnInit {
+
   constructor(private translateService: TranslateService) {
   }
 
@@ -17,6 +21,10 @@ export class AppComponent implements OnInit {
     const browserLang = this.translateService.getBrowserLang();
     this.translateService.use(browserLang.match(/zh|en/) ? browserLang : 'zh');
     // --- set i18n end ---
+  }
+
+  getAnimationData(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
 }
