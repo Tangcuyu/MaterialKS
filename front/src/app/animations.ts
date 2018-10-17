@@ -1,34 +1,23 @@
 import {
     trigger, animateChild, group,
-    transition, animate, style, query
+    transition, animate, style, query, keyframes
 } from '@angular/animations';
 
 
 // Routable animations
 export const slideInAnimation =
-    trigger('routeAnimation', [
-        transition('auth <=> dashboard', [
-            style({ position: 'relative' }),
-            query(':enter, :leave', [
-                style({
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%'
-                })
-            ]),
-            query(':enter', [
-                style({ left: '-100%' })
-            ]),
-            query(':leave', animateChild()),
-            group([
-                query(':leave', [
-                    animate('300ms ease-out', style({ left: '100%' }))
-                ]),
-                query(':enter', [
-                    animate('300ms ease-out', style({ left: '0%' }))
-                ])
-            ]),
-            query(':enter', animateChild()),
+    trigger('myInsertRemoveTrigger', [
+        transition(':enter', [
+            style({
+                opacity: 0,
+                transform: 'translateY(-10%)'
+             }),
+            animate('0.8s 100ms ease-in-out', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+        ]),
+        transition(':leave', [
+            animate('1s', style({ opacity: 0 }))
         ])
     ]);

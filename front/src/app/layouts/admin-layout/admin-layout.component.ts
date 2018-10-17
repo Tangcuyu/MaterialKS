@@ -8,7 +8,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-admin-layout',
+  selector: 'itsi-admin-layout',
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })

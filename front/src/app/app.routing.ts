@@ -10,12 +10,11 @@ const routes: Routes = [
   {
     path: 'auth',
     component: UserAuthComponent,
-    data: { animation: 'auth' }
+    data: { animatioarn: 'auth' }
   },
   {
     path: '',
-    redirectTo: 'dashboard',
-    data: { animation: 'dashboard' },
+    redirectTo: 'auth',
     pathMatch: 'full',
   }, {
     path: '',
@@ -40,7 +39,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes, {enableTracing: true})
+    RouterModule.forRoot(
+      routes,
+      // {enableTracing: true}
+      )
   ],
   exports: [
   ],

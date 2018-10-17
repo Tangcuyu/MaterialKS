@@ -1,7 +1,9 @@
-  <div class="container login-page off-canvas-sidebar" >
-    <div class="row">
+  <div @myInsertRemoveTrigger *ngIf="isShow" 
+  (@myInsertRemoveTrigger.start)="onAnimationEvent($event)" 
+  (@myInsertRemoveTrigger.done)="onAnimationEvent($event)" class="container login-page" >
+    <div  class="row">
       <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
-        <form>
+        <form >
           <div class="card card-login">
             <div class="card-header card-header-rose text-center">
               <h4 class="card-title">Log in</h4>
