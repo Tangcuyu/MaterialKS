@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 // import core serivces for our app
 import { CoreModulesModule } from './core-modules/core-modules.module'
@@ -11,14 +11,9 @@ import { CoreModulesModule } from './core-modules/core-modules.module'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-
-
-
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
-
 
 // import { DashboardComponent } from './dashboard/dashboard.component';
 // import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -34,8 +29,6 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 import { SharedModule } from './shared-module/shared-module.module';
-import { UserAuthComponent } from './auth/user-auth/user-auth.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 
 @NgModule({
@@ -61,10 +54,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-    UserAuthComponent,
-    PageNotFoundComponent,
-
+    AdminLayoutComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

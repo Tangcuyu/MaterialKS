@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserServiceService } from '../../core-modules/user-service.service';
-import { IUserConfig } from '../../core-modules/model';
-import { slideInAnimation } from '../../animations';
+import { UserServiceService } from '../../../core-modules/user-service.service';
+import { AuthService } from '../../../core-modules/auth.service';
+import { Router } from '@angular/router';
+import { IUserConfig } from '../../../core-modules/model';
+import { slideInAnimation } from '../../../animations';
 import {
   AnimationEvent
 } from '@angular/animations';
@@ -17,31 +19,55 @@ export class UserAuthComponent implements OnInit {
   userConfig: IUserConfig;
   headers: string[];
   isShow: Boolean;
-  //  @HostBinding('@routeAnimation') routeAnimation = true;
-  // @HostBinding('style.display') display = 'block';
-  // @HostBinding('style.position') position = 'absolute';
+  message: string;
 
-  constructor(private userService: UserServiceService ) { }
+  constructor(private userService: UserServiceService, private authService: AuthService, private router: Router) {
+    this.setMessage();
+  }
+
+  setMessage() {
+    this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
+  }
+
+  login() {
+    this.message = 'Trying to log in ...';
+    console.log(this.message);
+    this.authService.login().subscribe(() => {
+      this.setMessage();
+      console.log(this.message);
+      if (this.authService.isLoggedIn) {
+        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
+
+        this.router.navigate([redirect]);
+      }
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.setMessage();
+    console.log(this.message);
+  }
 
   // log the animation information to console
   onAnimationEvent(event: AnimationEvent) {
     // myInsertRemoveTrigger is trigger name in this example
-    console.warn(`Animation Trigger: ${event.triggerName}`);
+    // console.warn(`Animation Trigger: ${event.triggerName}`);
 
     // phaseName is start or done
-    console.warn(`Phase: ${event.phaseName}`);
+    // console.warn(`Phase: ${event.phaseName}`);
 
     // in our example, totalTime is 800 or 0.8 second
-    console.warn(`Total time: ${event.totalTime}`);
+    // console.warn(`Total time: ${event.totalTime}`);
 
     // in our example, fromState is either open or closed
-    console.warn(`From: ${event.fromState}`);
+    // console.warn(`From: ${event.fromState}`);
 
     // in our example, toState either open or closed
-    console.warn(`To: ${event.toState}`);
+    // console.warn(`To: ${event.toState}`);
 
     // the HTML element itself, the div for auth in this case
-    console.warn(`Element: ${event.element}`);
+    // console.warn(`Element: ${event.element}`);
   };
 
   ngOnInit() {
@@ -66,6 +92,7 @@ export class UserAuthComponent implements OnInit {
         this.userConfig = { ...resp.body };
       }
     );
+
 
   }
 

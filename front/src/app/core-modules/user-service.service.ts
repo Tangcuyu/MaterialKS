@@ -9,7 +9,7 @@ import { throwError } from 'rxjs/';
 )
 export class UserServiceService {
 
-  configUrl = 'assets/config.json';
+  configUrl = 'keystone/api/session/signin';
 
   constructor(private http: HttpClient) { }
 

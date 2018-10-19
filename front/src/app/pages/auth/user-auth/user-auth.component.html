@@ -5,17 +5,17 @@
       <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
         <form >
           <div class="card card-login">
-            <div class="card-header card-header-rose text-center">
+            <div class="card-header card-header-info text-center">
               <h4 class="card-title">Log in</h4>
               <div class="social-line">
                 <a class="btn btn-just-icon btn-link btn-white" href="">
-                  <i class="fa fa-facebook-square"></i>
+                  <i class="fa fa-qq"></i>
                 </a>
                 <a class="btn btn-just-icon btn-link btn-white" href="">
-                  <i class="fa fa-twitter"></i>
+                  <i class="fa fa-weixin"></i>
                 </a>
                 <a class="btn btn-just-icon btn-link btn-white" href="">
-                  <i class="fa fa-google-plus"></i>
+                  <i class="fa fa-weibo"></i>
                 </a>
               </div>
             </div>
@@ -28,17 +28,17 @@
                       <i class="material-icons">face</i>
                     </span>
                   </div>
-                  <input type="text" name="username" class="form-control" id="user-name" placeholder="First name...">
+                  <input type="text" name="username" class="form-control" id="user-name" placeholder="Username or UserID...">
                   <div *ngIf="">
-                    <label *ngIf="" class="alert alert-danger validation-message">Name
+                    <label *ngIf="" class="alert alert-danger validation-message">Userame
                       is
                       required</label>
-                    <label *ngIf="" class="alert alert-danger validation-message">A user
-                      with this name already exists.</label>
+                    <!-- <label *ngIf="" class="alert alert-danger validation-message">A user
+                      with this name already exists.</label> -->
                   </div>
                 </div>
               </span>
-              <span class="bmd-form-group">
+              <!-- <span class="bmd-form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -54,7 +54,7 @@
                       with this email already exists.</label>
                   </div>
                 </div>
-              </span>
+              </span> -->
               <span class="bmd-form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -72,7 +72,7 @@
               </span>
             </div>
             <div class="card-footer justify-content-center">
-              <a class="btn btn-rose btn-link btn-lg" routerLink="/dashboard">Lets Go</a>
+              <a class="btn btn-rose btn-link btn-lg" (click)="login()"  routerLink="/dashboard">Lets Go</a>
             </div>
           </div>
   

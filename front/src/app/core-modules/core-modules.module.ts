@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserServiceService } from './user-service.service'
+import { UserServiceService } from './user-service.service';
+import { AuthGuardService } from './auth-guard.service';
+import { AuthService } from './auth.service'
 
 @NgModule({
   imports: [
@@ -8,7 +10,9 @@ import { UserServiceService } from './user-service.service'
   ],
   declarations: [],
   providers: [
-    { provide: UserServiceService, useClass: UserServiceService }
+    UserServiceService,
+    AuthGuardService,
+    AuthService
   ],
   exports: [CommonModule]
 })

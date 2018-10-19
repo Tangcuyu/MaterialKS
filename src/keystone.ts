@@ -15,7 +15,7 @@ keystone.init(<any>{
     'brand': 'keystoneTS',
 
     'less': 'public',
- 'static': 'public',
+    'static': 'public',
     'favicon': 'public/favicon.ico',
     'views': '../templates/views',
     'view engine': '.hbs',

@@ -2,28 +2,32 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule, enableDebugTools  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { UserAuthComponent } from './auth/user-auth/user-auth.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-
+import { AuthGuardService } from './core-modules/auth-guard.service';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    component: UserAuthComponent,
-    data: { animatioarn: 'auth' }
-  },
-  {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   }, {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [AuthGuardService],     // added canActive and AuthGuard service
     children: [
         {
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]}
+  }]},
+  {
+    path: '',
+    children: [
+      {
+        path: 'pages',
+        loadChildren: './pages/pages.module#PagesModule'
+      }
+    ]
+  }
     // { path: 'dashboard',      component: DashboardComponent },
     // { path: 'user-profile',   component: UserProfileComponent },
     // { path: 'table-list',     component: TableListComponent },
