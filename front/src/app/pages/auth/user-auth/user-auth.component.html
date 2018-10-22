@@ -32,7 +32,7 @@
                       <input type="text" class="form-control" id="user-name" placeholder="Username or UserID...*" [(ngModel)]="userName" name="username"
                         #name="ngModel" required>
                       <div *ngIf="name.touched">
-                        <mat-error for="user-name" *ngIf="name.control.hasError('required') && name.touched" class="validation-message">Userame
+                        <mat-error for="user-name" *ngIf="name.control.hasError('required') && name.touched" class="validation-message" style="position: fixed;">Userame
                           is
                           required</mat-error>
                         <!-- <label *ngIf="" class="alert alert-danger validation-message">A user
@@ -52,7 +52,7 @@
                   <div class="form-group" style="width: 82%">
                     <input type="email" class="form-control" id="user-email" placeholder="Enter your email*" [(ngModel)]="userEmail" name="email" #email="ngModel" required>
                     <div *ngIf="email.touched">
-                      <mat-error *ngIf="email.control.hasError('required') && email.touched" class="validation-message">Email
+                      <mat-error *ngIf="email.control.hasError('required') && email.touched" class="validation-message" style="position: fixed;">Email
                         is
                         required</mat-error>
                       <label *ngIf="" class="alert alert-danger validation-message">A user
