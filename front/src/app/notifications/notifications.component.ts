@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output} from '@angular/core';
+
 declare var $: any;
 @Component({
-  selector: 'app-notifications',
+  selector: 'itsi-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-
+  @Output() message: string;
   constructor() { }
-  showNotification(from, align){
-      const type = ['','info','success','warning','danger'];
+  showNotification(from, align, e: Event) {
+      const type = ['', 'info', 'success', 'warning', 'danger'];
 
       const color = Math.floor((Math.random() * 4) + 1);
 
       $.notify({
-          icon: "notifications",
-          message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+          icon: 'notifications',
+          message: this.message
 
-      },{
+      }, {
           type: type[color],
           timer: 4000,
           placement: {

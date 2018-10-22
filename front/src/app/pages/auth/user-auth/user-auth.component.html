@@ -3,7 +3,7 @@
   (@myInsertRemoveTrigger.done)="onAnimationEvent($event)" class="container login-page" >
     <div  class="row">
       <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
-        <form >
+        <form #authForm="ngForm">
           <div class="card card-login">
             <div class="card-header card-header-info text-center">
               <h4 class="card-title">Log in</h4>
@@ -22,39 +22,46 @@
             <div class="card-body">
               <p class="card-description text-center">Or Be Classical</p>
               <span class="bmd-form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">face</i>
-                    </span>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">face</i>
+                      </span>
+                    </div>
+                    <div class="form-group" style="width: 82%">
+                      <input type="text" class="form-control" id="user-name" placeholder="Username or UserID...*" [(ngModel)]="userName" name="username"
+                        #name="ngModel" required>
+                      <div *ngIf="name.touched">
+                        <mat-error for="user-name" *ngIf="name.control.hasError('required') && name.touched" class="validation-message">Userame
+                          is
+                          required</mat-error>
+                        <!-- <label *ngIf="" class="alert alert-danger validation-message">A user
+                           with this name already exists.</label> -->
+                      </div>
+                    </div>
                   </div>
-                  <input type="text" name="username" class="form-control" id="user-name" placeholder="Username or UserID...">
-                  <div *ngIf="">
-                    <label *ngIf="" class="alert alert-danger validation-message">Userame
-                      is
-                      required</label>
-                    <!-- <label *ngIf="" class="alert alert-danger validation-message">A user
-                      with this name already exists.</label> -->
-                  </div>
-                </div>
+                  
               </span>
-              <!-- <span class="bmd-form-group">
+              <span class="bmd-form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="material-icons">email</i>
                     </span>
                   </div>
-                  <input type="email" name="email" class="form-control" id="user-email" placeholder="Email...">
-                  <div *ngIf="">
-                    <label *ngIf="" class="alert alert-danger validation-message">Email
-                      is
-                      required</label>
-                    <label *ngIf="" class="alert alert-danger validation-message">A user
-                      with this email already exists.</label>
+                  <div class="form-group" style="width: 82%">
+                    <input type="email" class="form-control" id="user-email" placeholder="Enter your email*" [(ngModel)]="userEmail" name="email" #email="ngModel" required>
+                    <div *ngIf="email.touched">
+                      <mat-error *ngIf="email.control.hasError('required') && email.touched" class="validation-message">Email
+                        is
+                        required</mat-error>
+                      <label *ngIf="" class="alert alert-danger validation-message">A user
+                        with this email already exists.</label>
+                  </div>
+                  
                   </div>
                 </div>
-              </span> -->
+              </span>
               <span class="bmd-form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">

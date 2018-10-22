@@ -3,10 +3,12 @@ import { UserServiceService } from '../../../core-modules/user-service.service';
 import { AuthService } from '../../../core-modules/auth.service';
 import { Router } from '@angular/router';
 import { IUserConfig } from '../../../core-modules/model';
+// Define animations
 import { slideInAnimation } from '../../../animations';
 import {
   AnimationEvent
 } from '@angular/animations';
+
 
 
 @Component({
@@ -16,10 +18,15 @@ import {
   animations: [slideInAnimation]
 })
 export class UserAuthComponent implements OnInit {
-  userConfig: IUserConfig;
-  headers: string[];
-  isShow: Boolean;
-  message: string;
+  public userConfig: IUserConfig;
+  public headers: string[];
+  public isShow: Boolean;
+  public message: string;
+  public userName: string;
+  public userEmail: string;
+  public password: string;
+  public submitted = false;
+
 
   constructor(private userService: UserServiceService, private authService: AuthService, private router: Router) {
     this.setMessage();
@@ -31,6 +38,7 @@ export class UserAuthComponent implements OnInit {
 
   login() {
     this.message = 'Trying to log in ...';
+    this.submitted = true;
     console.log(this.message);
     this.authService.login().subscribe(() => {
       this.setMessage();

@@ -4,10 +4,24 @@ import { LoginComponent } from './login/login.component';
 import { UserAuthComponent } from './auth/user-auth/user-auth.component';
 import { RouterModule } from '@angular/router';
 import { PagesRoutes } from './pages.routing';
+import { FormsModule } from '@angular/forms';
+import {
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatRippleModule,
+  MatTooltipModule,
+} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatRippleModule,
+    MatTooltipModule,
     RouterModule.forChild(PagesRoutes)
   ],
   declarations: [
