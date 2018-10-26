@@ -1,4 +1,9 @@
 export interface IUserConfig {
-    usersUrl: string;
-    imgfile: string;
+    email: string;
+    usersUrl?: string;
+    imgfile?: string;
+}
+
+export class User implements IUserConfig {
+    email: '';
 }

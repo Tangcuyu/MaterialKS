@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs/';
-import { delay, tap } from 'rxjs/operators';
-
+import { delay, tap, map } from 'rxjs/operators';
+import { UserCheckService } from './user-check.service';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { User } from '../core-modules/model';
 
 @Injectable()
 export class AuthService {
@@ -11,11 +13,10 @@ export class AuthService {
   //  store the URL so we can redirect after logging in.
   redirectUrl: string;
 
-  constructor() { }
+  constructor(private userCheck: UserCheckService) { }
 
-  login(): Observable<boolean> {
-    return of(true).pipe(
-      delay(1000),
+  login(formAuth: User): Observable<any> {
+    return this.userCheck.checkUser(formAuth).pipe(
       tap(val => this.isLoggedIn = true)
     );
   }

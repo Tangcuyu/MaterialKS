@@ -1,5 +1,8 @@
-const async = require('async'),
-    keystone = require('keystone');
+import * as async from 'async';
+import * as keystone from 'keystone';
+
+// const async = require('async'),
+// keystone = require('keystone');
 const exec = require('child_process').exec;
 
 const FileData = keystone.list('FileUpload');

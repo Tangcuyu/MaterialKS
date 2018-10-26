@@ -1,9 +1,7 @@
-  <div @myInsertRemoveTrigger *ngIf="isShow" 
-  (@myInsertRemoveTrigger.start)="onAnimationEvent($event)" 
-  (@myInsertRemoveTrigger.done)="onAnimationEvent($event)" class="container login-page" >
+  <div @myInsertRemoveTrigger *ngIf="isShow" class="container login-page" >
     <div  class="row">
       <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
-        <form #authForm="ngForm">
+        <form (ngSubmit)="login(authForm.form)" #authForm="ngForm">
           <div class="card card-login">
             <div class="card-header card-header-info text-center">
               <h4 class="card-title">Log in</h4>
@@ -20,8 +18,8 @@
               </div>
             </div>
             <div class="card-body">
-              <p class="card-description text-center">Or Be Classical</p>
-              <span class="bmd-form-group">
+              <p class="card-description text-center">Register new Account</p>
+              <!-- <span class="bmd-form-group">
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
@@ -35,13 +33,12 @@
                         <mat-error for="user-name" *ngIf="name.control.hasError('required') && name.touched" class="validation-message" style="position: fixed;">Userame
                           is
                           required</mat-error>
-                        <!-- <label *ngIf="" class="alert alert-danger validation-message">A user
-                           with this name already exists.</label> -->
+                        <label *ngIf="" class="alert alert-danger validation-message">A user
+                           with this name already exists.</label>
                       </div>
                     </div>
                   </div>
-                  
-              </span>
+              </span> -->
               <span class="bmd-form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -50,15 +47,17 @@
                     </span>
                   </div>
                   <div class="form-group" style="width: 82%">
-                    <input type="email" class="form-control" id="user-email" placeholder="Enter your email*" [(ngModel)]="userEmail" name="email" #email="ngModel" required>
-                    <div *ngIf="email.touched">
-                      <mat-error *ngIf="email.control.hasError('required') && email.touched" class="validation-message" style="position: fixed;">Email
-                        is
-                        required</mat-error>
-                      <label *ngIf="" class="alert alert-danger validation-message">A user
-                        with this email already exists.</label>
-                  </div>
-                  
+                    <input  class="form-control" id="user-email" placeholder="Enter your email*" [(ngModel)]="email" name="email" email #useremail="ngModel" required>
+                    <div *ngIf="useremail.touched">
+                      <mat-error *ngIf="useremail.pristine && useremail.control.hasError('required')" class="validation-message" style="position: fixed;">You must enter email address</mat-error>
+                    </div>
+                    <div *ngIf="useremail.dirty">
+                      <mat-error *ngIf="useremail.control.hasError('email')" class="validation-message"
+                        style="position: fixed;">Not a valid email</mat-error>
+                    </div>
+                      
+                      <!-- <label *ngIf="" class="alert alert-danger validation-message">A user
+                        with this email already exists.</label> -->
                   </div>
                 </div>
               </span>
@@ -69,20 +68,22 @@
                       <i class="material-icons">lock_outline</i>
                     </span>
                   </div>
-                  <input type="password" name="password" class="form-control" id="user-password" placeholder="Password...">
-                  <div *ngIf="">
-                    <label *ngIf="" class="alert alert-danger validation-message">Password
-                      is
-                      required</label>
+                  <div class="form-group" style="width: 82%">
+                    <input type="password" class="form-control" id="user-password" placeholder="Password..." [(ngModel)]="password" name="password"
+                      #passWord="ngModel" required>
+                    <div *ngIf="passWord.touched">
+                      <mat-error *ngIf="passWord.control.hasError('required')" style="position: fixed;">Password
+                        is
+                        required</mat-error>
+                    </div>
                   </div>
                 </div>
               </span>
             </div>
             <div class="card-footer justify-content-center">
-              <a class="btn btn-rose btn-link btn-lg" (click)="login()"  routerLink="/dashboard">Lets Go</a>
+              <button class="btn btn-rose btn-link btn-lg" type="submit" [disabled]="!authForm.form.valid">Lets Go</button>
             </div>
           </div>
-  
         </form>
       </div>
     </div>

@@ -36,6 +36,7 @@ const routes = {
 export = function (app) {
       // Views
       app.get('/', routes.views.index);
+      app.post('/api/usertest', keystone.middleware.api, routes.api.usertest.test);
       // app.get('/blog/:category?', routes.views.blog);
       // app.get('/blog/post/:post', routes.views.post);
       // app.get('/gallery', routes.views.gallery);

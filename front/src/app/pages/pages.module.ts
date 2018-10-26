@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { UserAuthComponent } from './auth/user-auth/user-auth.component';
 import { RouterModule } from '@angular/router';
 import { PagesRoutes } from './pages.routing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatFormFieldModule,
   MatButtonModule,
@@ -17,6 +17,7 @@ import {
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,

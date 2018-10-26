@@ -16,7 +16,12 @@ export const PagesRoutes: Routes = [
     //     }]
     // }
     {
-        path: 'login',
-        component: LoginComponent
-    }
+        path: 'pages',
+        children: [
+            {
+                path: 'login',
+                component: LoginComponent
+            }
+        ]
+    },
 ];
