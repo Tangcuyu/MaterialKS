@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserServiceService } from '../../../core-modules/user-service.service';
+import { UserCheckService } from '../../../core-modules/user-check.service';
 import { AuthService } from '../../../core-modules/auth.service';
 import { Router } from '@angular/router';
 import { User, IUserConfig} from '../../../core-modules/model';
@@ -30,7 +31,8 @@ export class UserAuthComponent implements OnInit {
   public submitted: Boolean = false;
 
 
-  constructor(private userService: UserServiceService, private authService: AuthService, private router: Router) {
+  constructor(private userService: UserServiceService, private userCheck: UserCheckService,
+    private authService: AuthService, private router: Router) {
     this.setMessage();
   }
 
@@ -38,16 +40,41 @@ export class UserAuthComponent implements OnInit {
     this.message = 'Trying to log in ...';
     this.guest = formAuth.value;
     if (!formAuth.valid) {return};
-    this.authService.login(this.guest).subscribe((data: any) => {
-      this.setMessage();
-      console.log(this.message);
-      console.log(data);
-      /* if (this.authService.isLoggedIn) {
+    /* this.authService.login(this.guest).subscribe((data: any) => {
+        this.setMessage();
+        console.log(this.message);
+        console.log(data);
+        if (this.authService.isLoggedIn) {
         const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
 
         this.router.navigate([redirect]);
-      } */
-    });
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    ); */
+      this.userCheck.checkUser(this.guest).subscribe(
+        res => {
+          this.message = res;
+          console.log(this.message);
+        }
+      )
+    ;
+
+    // Get full repsonse from server
+    /* this.userCheck.checkUser(this.guest).subscribe(
+      (resp) => {
+        const keys = resp.headers.keys();
+        this.headers = keys.map(key => `${key}: ${resp.headers.get(key)}`);
+        this.userConfig = { ...resp.body };
+        console.log(this.headers);
+        console.log(this.userConfig);
+      },
+      error => {
+        console.log(error);
+      }
+    ); */
   }
 
   logout() {
@@ -72,6 +99,20 @@ export class UserAuthComponent implements OnInit {
   // get full response from userService
   showUserConfigResponse() {
     this.userService.getConfigResponse().subscribe(
+      (resp) => {
+        const keys = resp.headers.keys();
+        this.headers = keys.map(key => `${key}: ${resp.headers.get(key)}`);
+
+        this.userConfig = { ...resp.body };
+      }
+    );
+
+
+  }
+
+  // get full response from userCheck service
+  showUserCheckResponse() {
+    this.userCheck.checkUser(this.guest).subscribe(
       (resp) => {
         const keys = resp.headers.keys();
         this.headers = keys.map(key => `${key}: ${resp.headers.get(key)}`);

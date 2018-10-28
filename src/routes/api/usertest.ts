@@ -17,6 +17,7 @@ exports.test = function (req, res) {
     // req.files.file.filename = req.files.file.originalname;
     // console.log(data);
     console.log(req.headers);
+    console.log(req.body);
     res.apiResponse(data);
     /* item.getUpdateHandler(req).process(data, function (err) {
 

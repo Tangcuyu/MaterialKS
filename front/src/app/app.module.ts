@@ -34,15 +34,15 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 
 import { SharedModule } from './shared-module/shared-module.module';
 
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
-      // cookieName: 'XSRF-TOKEN',
-      headerName: '_csrf'
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'x-xsrf-token'
     }),
+    // HttpClientXsrfModule,
     ComponentsModule,
     RouterModule,
     SharedModule,

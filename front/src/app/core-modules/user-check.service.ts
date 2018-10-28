@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/observable';
 import { catchError, retry, map } from 'rxjs/operators';
-import { throwError } from 'rxjs/';
+import { throwError, of } from 'rxjs/';
+import { error } from 'util';
 
 
 const configUrl = '/keystone/api/session/signin';
@@ -18,22 +19,32 @@ export class UserCheckService {
 
   constructor(private http: HttpClient) { }
 
-  checkUser(user: any): Observable<HttpResponse<any>>  {
-    return this.http.post<any> (configUrl, user, httpOptions)
+  checkUser(user: any): Observable<any>  {
+    return this.http.post<any>(configUrl, user, httpOptions)
       .pipe(
+        map(res => {
+          if (!res.response) {
+            throw new Error('Value expected!');
+          }
+          return res.response;
+        }),
         catchError(this.handelError)
       );
   }
 
 
-  private handelError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
+  private handelError(err: HttpErrorResponse) {
+    if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it here.
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred:', err.error.message);
+      return throwError('client-side or network error occurred');
     } else {
       // The backend returned an unsucessful response code.
       // The response body may contain clues as to what went wrong.
-      console.error(`Backend returned code ${error.status}` + `body was: ${JSON.stringify(error.error)}`);
+      if (err.status === 401) {
+        return throwError('email or password invaild.');
+      }
+      console.error(`Backend returned code ${err.status}` + `body was: ${JSON.stringify(err.error)}`);
     }
 
     return throwError('Something bad happened; please try again later.');
