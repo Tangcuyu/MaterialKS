@@ -6,7 +6,7 @@ import {
 
 // Routable animations
 export const slideInAnimation =
-    trigger('myInsertRemoveTrigger', [
+    trigger('myFadeinTrigger', [
         transition(':enter', [
             style({
                 opacity: 0,

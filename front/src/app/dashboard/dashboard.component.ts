@@ -1,14 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { NotifyService } from '../core-modules/notify.service';
+import { INotifyConifg } from '../core-modules/model';
+
+
+
+declare var $: any;
+const notifyconfig: INotifyConifg = {
+  from: 'top',
+  align: 'right',
+  title: 'Hello',
+  message: 'Welcome',
+  color: 1,
+  timer: 1000,
+  delay: 1000
+};
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'itsi-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,  AfterViewInit {
 
-  constructor() { }
+  constructor(private notify: NotifyService) { }
   startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -66,7 +81,8 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+
+    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
           labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -145,6 +161,10 @@ export class DashboardComponent implements OnInit {
 
       // start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
+  }
+
+  ngAfterViewInit() {
+   // this.notify.showNotification(notifyconfig);
   }
 
 }

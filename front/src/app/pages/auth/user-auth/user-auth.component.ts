@@ -7,11 +7,24 @@ import { Router } from '@angular/router';
 import { User, IUserConfig} from '../../../core-modules/model';
 // Define animations
 import { slideInAnimation } from '../../../animations';
+import { NotifyService } from '../../../core-modules/notify.service';
+import { INotifyConifg } from '../../../core-modules/model';
+
 import {
   AnimationEvent
 } from '@angular/animations';
 
 
+declare var $: any;
+const notifyconfig: INotifyConifg = {
+  from: 'top',
+  align: 'center',
+  title: '',
+  message: '',
+  color: 3,
+  timer: 1000,
+  delay: 1000
+};
 
 @Component({
   selector: 'itsi-user-auth',
@@ -20,19 +33,20 @@ import {
   animations: [slideInAnimation]
 })
 export class UserAuthComponent implements OnInit {
-  public guest: User; // User will be certified
-  public userConfig: IUserConfig;
+  public guest: User; // User who will be certified
+  public userConfig: IUserConfig; // Certified user infomation
   public headers: string[];
   public isShow: Boolean; // Auth form animation switch
-  public message: string;
+  public message: string; // log infomation
   public userName: string;
   public email: string;
   public password: string;
   public submitted: Boolean = false;
+  public err: string;
 
 
   constructor(private userService: UserServiceService, private userCheck: UserCheckService,
-    private authService: AuthService, private router: Router) {
+    private authService: AuthService, private router: Router, private notify: NotifyService) {
     this.setMessage();
   }
 
@@ -40,27 +54,22 @@ export class UserAuthComponent implements OnInit {
     this.message = 'Trying to log in ...';
     this.guest = formAuth.value;
     if (!formAuth.valid) {return};
-    /* this.authService.login(this.guest).subscribe((data: any) => {
-        this.setMessage();
-        console.log(this.message);
-        console.log(data);
-        if (this.authService.isLoggedIn) {
-        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
-
-        this.router.navigate([redirect]);
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    ); */
-      this.userCheck.checkUser(this.guest).subscribe(
+    this.authService.login(this.guest).subscribe(
         res => {
-          this.message = res;
-          console.log(this.message);
+          this.userConfig = {...res};
+          console.log(this.userConfig);
+          if (this.authService.isLoggedIn) {
+            // const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
+            const redirect = 'dashboard';
+            this.router.navigate([redirect]);
+          }
+        },
+        error => {
+          this.err = error;
+          notifyconfig.message = this.err;
+          this.notify.showNotification(notifyconfig);
         }
-      )
-    ;
+    );
 
     // Get full repsonse from server
     /* this.userCheck.checkUser(this.guest).subscribe(
@@ -75,12 +84,6 @@ export class UserAuthComponent implements OnInit {
         console.log(error);
       }
     ); */
-  }
-
-  logout() {
-    this.authService.logout();
-    this.setMessage();
-    console.log(this.message);
   }
 
 
@@ -110,49 +113,8 @@ export class UserAuthComponent implements OnInit {
 
   }
 
-  // get full response from userCheck service
-  showUserCheckResponse() {
-    this.userCheck.checkUser(this.guest).subscribe(
-      (resp) => {
-        const keys = resp.headers.keys();
-        this.headers = keys.map(key => `${key}: ${resp.headers.get(key)}`);
-
-        this.userConfig = { ...resp.body };
-      }
-    );
-
-
-  }
-
   setMessage() {
     this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
-
-  // log the animation information to console
-  // onAnimationEvent(event: AnimationEvent) {
-    // myInsertRemoveTrigger is trigger name in this example
-    // console.warn(`Animation Trigger: ${event.triggerName}`);
-
-    // phaseName is start or done
-    // console.warn(`Phase: ${event.phaseName}`);
-
-    // in our example, totalTime is 800 or 0.8 second
-    // console.warn(`Total time: ${event.totalTime}`);
-
-    // in our example, fromState is either open or closed
-    // console.warn(`From: ${event.fromState}`);
-
-    // in our example, toState either open or closed
-    // console.warn(`To: ${event.toState}`);
-
-    // the HTML element itself, the div for auth in this case
-    // console.warn(`Element: ${event.element}`);
-  // };
-
-  // used for Email formCtrol
-  /*  getErrorMessage() {
-    return this.userEmail.hasError('required') ? 'You must enter email address' :
-      this.userEmail.hasError('email') ? 'Not a valid email' : '';
-  } */
 
 }

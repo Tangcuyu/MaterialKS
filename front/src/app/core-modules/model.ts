@@ -9,3 +9,13 @@ export interface IUserConfig {
 export class User implements IUserConfig {
     email: '';
 }
+
+export interface INotifyConifg {
+    from: string;
+    align: string;
+    title: string;
+    message: string;
+    color: number;
+    timer?: number;
+    delay?: number;
+}

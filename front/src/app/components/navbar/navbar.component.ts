@@ -2,10 +2,11 @@ import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/co
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core-modules/auth.service';
 
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'itsi-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -18,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
     @Output() notify: EventEmitter<string> = new EventEmitter();
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,  private element: ElementRef, private router: Router, private authService: AuthService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -130,5 +131,9 @@ export class NavbarComponent implements OnInit {
           }
       }
       return 'Dashboard';
+    }
+
+    logOut() {
+        this.authService.logout();
     }
 }

@@ -4,6 +4,8 @@ import { delay, tap, map, catchError } from 'rxjs/operators';
 import { UserCheckService } from './user-check.service';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User } from '../core-modules/model';
+import { Router } from '@angular/router';
+
 
 @Injectable()
 export class AuthService {
@@ -13,36 +15,16 @@ export class AuthService {
   //  store the URL so we can redirect after logging in.
   redirectUrl: string;
 
-  constructor(private userCheck: UserCheckService) { }
+  constructor(private userCheck: UserCheckService, private router: Router) { }
 
   login(formAuth: User): Observable<any> {
     return this.userCheck.checkUser(formAuth).pipe(
-      tap(val => this.isLoggedIn = true),
-      catchError(this.handelError)
+      tap(val => this.isLoggedIn = true)
     );
   }
 
   logout(): void {
     this.isLoggedIn = false;
+    this.router.navigate(['/pages/login']);
   }
-
-  private handelError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it here.
-      console.error('An error occurred:', error.error.message);
-      return throwError('client-side or network error occurred');
-    } else {
-      // The backend returned an unsucessful response code.
-      // The response body may contain clues as to what went wrong.
-      if (error.status === 401) {
-        return throwError('email or password invaild.');
-      }
-      console.error(`Backend returned code ${error.status}` + `body was: ${JSON.stringify(error.error)}`);
-    }
-
-    return throwError('Something bad happened; please try again later.');
-  }
-
-
-
 }
