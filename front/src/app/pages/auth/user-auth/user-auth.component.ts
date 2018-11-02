@@ -22,7 +22,7 @@ const notifyconfig: INotifyConifg = {
   title: '',
   message: '',
   color: 3,
-  timer: 1000,
+  timer: 2000,
   delay: 1000
 };
 
@@ -56,11 +56,11 @@ export class UserAuthComponent implements OnInit {
     if (!formAuth.valid) {return};
     this.authService.login(this.guest).subscribe(
         res => {
-          this.userConfig = {...res};
-          console.log(this.userConfig);
+          this.userConfig = {...res.user};
+          // console.log(this.userConfig);
           if (this.authService.isLoggedIn) {
-            // const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
-            const redirect = 'dashboard';
+            const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
+            // const redirect = 'dashboard';
             this.router.navigate([redirect]);
           }
         },

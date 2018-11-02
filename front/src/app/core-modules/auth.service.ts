@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs/';
 import { delay, tap, map, catchError } from 'rxjs/operators';
 import { UserCheckService } from './user-check.service';
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User } from '../core-modules/model';
 import { Router } from '@angular/router';
 

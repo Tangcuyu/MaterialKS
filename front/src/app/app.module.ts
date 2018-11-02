@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 // import core serivces for our app
 import { CoreModulesModule } from './core-modules/core-modules.module'
@@ -71,11 +71,11 @@ import { SharedModule } from './shared-module/shared-module.module';
 })
 export class AppModule {
   // Diagnostic only: inspect router configuration
-  /* constructor(router: Router) {
+  constructor(router: Router) {
     // Use a custom replacer to display function names in the route configs
     const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
     console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
-  } */
+  }
 }
 
 // required for AOT compilation
