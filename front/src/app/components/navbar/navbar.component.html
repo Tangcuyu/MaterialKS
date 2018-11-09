@@ -2,6 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-wrapper">
           <a class="navbar-brand" href="#">{{getTitle() | translate}}</a>
+          <a class="navbar-brand" href="#">{{ authService.isLoggedIn }}</a>
         </div>
         <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
             <span class="sr-only">Toggle navigation</span>

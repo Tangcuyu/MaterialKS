@@ -12,6 +12,7 @@ import {
   MatRippleModule,
   MatTooltipModule,
 } from '@angular/material';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {
   ],
   declarations: [
     LoginComponent,
-    UserAuthComponent
+    UserAuthComponent,
+    CallbackComponent
   ],
   exports: [
     LoginComponent,

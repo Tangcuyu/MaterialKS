@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserServiceService } from '../../../core-modules/user-service.service';
 import { UserCheckService } from '../../../core-modules/user-check.service';
@@ -13,6 +13,7 @@ import { INotifyConifg } from '../../../core-modules/model';
 import {
   AnimationEvent
 } from '@angular/animations';
+import { Subscription } from 'rxjs/';
 
 
 declare var $: any;
@@ -32,7 +33,8 @@ const notifyconfig: INotifyConifg = {
   styleUrls: ['./user-auth.component.scss'],
   animations: [slideInAnimation]
 })
-export class UserAuthComponent implements OnInit {
+export class UserAuthComponent implements OnInit, OnDestroy {
+  public sub: Subscription;
   public guest: User; // User who will be certified
   public userConfig: IUserConfig; // Certified user infomation
   public headers: string[];
@@ -54,7 +56,7 @@ export class UserAuthComponent implements OnInit {
     this.message = 'Trying to log in ...';
     this.guest = formAuth.value;
     if (!formAuth.valid) {return};
-    this.authService.login(this.guest).subscribe(
+    this.sub = this.authService.login(this.guest).subscribe(
         res => {
           this.userConfig = {...res.user};
           // console.log(this.userConfig);
@@ -115,6 +117,10 @@ export class UserAuthComponent implements OnInit {
 
   setMessage() {
     this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

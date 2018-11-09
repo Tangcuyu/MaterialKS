@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import { NotifyService } from '../core-modules/notify.service';
 import { INotifyConifg } from '../core-modules/model';
+import { AuthService } from '../core-modules/auth.service';
 
 
 
@@ -23,7 +24,7 @@ const notifyconfig: INotifyConifg = {
 })
 export class DashboardComponent implements OnInit,  AfterViewInit {
 
-  constructor(private notify: NotifyService) { }
+  constructor(private notify: NotifyService, public authService: AuthService) { }
   startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
       seq = 0;

@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
     @Output() notify: EventEmitter<string> = new EventEmitter();
 
-    constructor(location: Location,  private element: ElementRef, private router: Router, private authService: AuthService) {
+    constructor(location: Location,  private element: ElementRef, private router: Router, public authService: AuthService) {
       this.location = location;
           this.sidebarVisible = false;
     }
