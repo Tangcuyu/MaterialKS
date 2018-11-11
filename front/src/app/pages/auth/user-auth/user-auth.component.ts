@@ -46,12 +46,9 @@ export class UserAuthComponent implements OnInit {
 
 
   constructor(private userService: UserServiceService, private userCheck: UserCheckService,
-    private authService: AuthService, private router: Router, private notify: NotifyService) {
-    this.setMessage();
-  }
+    private authService: AuthService, private router: Router, private notify: NotifyService) {}
 
   login(formAuth: any) {
-    this.message = 'Trying to log in ...';
     this.guest = formAuth.value;
     if (!formAuth.valid) {return};
     this.authService.login(this.guest).subscribe(
@@ -88,33 +85,7 @@ export class UserAuthComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.showUserConfigResponse();
+    // 动画加载登录界面
     this.isShow = true;
   }
-
-  // get data from userService with httpclient
-  showUserConfig() {
-    this.userService.getConfig().subscribe((data: IUserConfig) => {
-      this.userConfig = {...data};
-    });
-  }
-
-  // get full response from userService
-  showUserConfigResponse() {
-    this.userService.getConfigResponse().subscribe(
-      (resp) => {
-        const keys = resp.headers.keys();
-        this.headers = keys.map(key => `${key}: ${resp.headers.get(key)}`);
-
-        this.userConfig = { ...resp.body };
-      }
-    );
-
-
-  }
-
-  setMessage() {
-    this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
-
 }

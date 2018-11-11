@@ -8,6 +8,8 @@
  * modules in your project's /lib directory.
  */
 import * as _ from 'lodash';
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
 
 /**
@@ -55,3 +57,19 @@ export const requireUser = function (req, res, next) {
             next();
       }
 };
+
+/**
+ * Auth with Auth0
+ */
+export const authCheck = jwt({
+      secret: jwks.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: "https://itsi.auth0.com/.well-known/jwks.json"
+      }),
+      // This is the identifier we set when we created the API
+      audience: 'http://localhost:3000',
+      issuer: "itsi.auth0.com", // e.g., you.auth0.com
+      algorithms: ['RS256']
+});

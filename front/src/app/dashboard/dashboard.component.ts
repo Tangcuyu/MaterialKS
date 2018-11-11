@@ -1,11 +1,19 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import * as Chartist from 'chartist';
 import { NotifyService } from '../core-modules/notify.service';
-import { INotifyConifg } from '../core-modules/model';
+import { INotifyConifg, User } from '../core-modules/model';
+import { Auth0Service } from '../core-modules/auth0.service';
+// 导入UserService, 从后台获取User列表
+import { UserServiceService } from '../core-modules/user-service.service';
+import { Subscription } from 'rxjs/';
+import { HttpResponse } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 
 
 declare var $: any;
+
+// 提醒消息配置
 const notifyconfig: INotifyConifg = {
   from: 'top',
   align: 'right',
@@ -21,9 +29,12 @@ const notifyconfig: INotifyConifg = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit,  AfterViewInit {
+export class DashboardComponent implements OnInit,  AfterViewInit, OnDestroy {
+  public userList: User;
+  public userSubcription: Subscription;
+  public error: any;
+  constructor(private userService: UserServiceService, private auth0Service: Auth0Service) {}
 
-  constructor(private notify: NotifyService) { }
   startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -81,7 +92,11 @@ export class DashboardComponent implements OnInit,  AfterViewInit {
       seq2 = 0;
   };
   ngOnInit() {
-
+    this.userSubcription = this.userService.getConfig().subscribe(
+      (data: User) => this.userList = {...data},
+      err => this.error = err
+    );
+    this.auth0Service.handleLoginCallback();
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -167,4 +182,7 @@ export class DashboardComponent implements OnInit,  AfterViewInit {
    // this.notify.showNotification(notifyconfig);
   }
 
+  ngOnDestroy() {
+    this.userSubcription.unsubscribe();
+  }
 }

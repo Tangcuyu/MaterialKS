@@ -1,3 +1,5 @@
+/* 检查本地keystone用户名和密码是否正确 */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/observable';

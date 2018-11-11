@@ -5,6 +5,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service'
 import { UserCheckService } from './user-check.service';
 import { NotifyService } from './notify.service';
+import { Auth0Service } from './auth0.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { NotifyService } from './notify.service';
     UserServiceService,
     AuthGuardService,
     AuthService,
+    Auth0Service,
     UserCheckService,
     NotifyService
   ],

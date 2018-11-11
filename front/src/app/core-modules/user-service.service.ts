@@ -1,6 +1,8 @@
+/* UserService 用来从Keystone读取User列表 */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { IUserConfig } from './model';
+import { User } from './model';
 import { Observable } from 'rxjs/observable';
 import { catchError, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs/';
@@ -9,28 +11,19 @@ import { throwError } from 'rxjs/';
 )
 export class UserServiceService {
 
-  configUrl = 'keystone/api/session/signin';
+  configUrl = '/api/usertest';
 
   constructor(private http: HttpClient) { }
 
   getConfig() {
-    return this.http.get<IUserConfig>(this.configUrl)
+    return this.http.get<User>(this.configUrl)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handelError)
     );
   }
 
-  getConfigResponse(): Observable<HttpResponse<IUserConfig>> {
-    return this.http.get<IUserConfig>(
-      this.configUrl, {observe: 'response'}
-    ).pipe(
-      retry(3), // retry a failed request up to 3 times
-      catchError(this.handelError)
-    );
-  }
-
-  private handelError(error: HttpErrorResponse): Observable<HttpResponse<IUserConfig>> {
+  private handelError(error: HttpErrorResponse): Observable<HttpResponse<User>> {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it here.
       console.error('An error occurred:', error.error.message);
