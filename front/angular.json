@@ -4,7 +4,11 @@
   "defaultProject": "DTWZCG",
   "newProjectRoot": "projects",
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "warnings": {
+      "typescriptMismatch": true,
+      "versionMismatch": true
+    }
   },
   "projects": {
     "DTWZCG": {

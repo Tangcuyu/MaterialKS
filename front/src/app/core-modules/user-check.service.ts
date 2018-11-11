@@ -27,7 +27,7 @@ export class UserCheckService {
       );
   }
 
-  private handelError(err: HttpErrorResponse) {
+  private handelError(err: HttpErrorResponse | any) {
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it here.
       console.error('An error occurred:', err.error.message);
