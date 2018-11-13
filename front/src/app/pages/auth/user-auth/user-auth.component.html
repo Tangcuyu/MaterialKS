@@ -49,7 +49,7 @@
                   <div class="form-group" style="width: 82%">
                     <input  class="form-control" id="user-email" placeholder="Enter your email*" [(ngModel)]="email" name="email" email #useremail="ngModel" required>
                     <div *ngIf="useremail.touched">
-                      <mat-error *ngIf="useremail.pristine && useremail.control.hasError('required')" class="validation-message" style="position: fixed;">You must enter email address</mat-error>
+                      <mat-error *ngIf="useremail.control.hasError('required')" class="validation-message" style="position: fixed;">You must enter email address</mat-error>
                     </div>
                     <div *ngIf="useremail.dirty">
                       <mat-error *ngIf="useremail.control.hasError('email')" class="validation-message"
