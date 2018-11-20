@@ -14,6 +14,8 @@ keystone.init(<any>{
     'name': 'keystoneTS',
     'brand': 'keystoneTS',
 
+    'port': process.env.PORT || 8080,
+
     'less': 'public',
     'static': 'public',
     'favicon': 'public/favicon.ico',

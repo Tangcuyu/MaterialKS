@@ -5,7 +5,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service'
 import { UserCheckService } from './user-check.service';
 import { NotifyService } from './notify.service';
-import { Auth0Service } from './auth0.service';
+// import { Auth0Service } from './auth0.service';    由于被墙，暂停此服务
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { Auth0Service } from './auth0.service';
     UserServiceService,
     AuthGuardService,
     AuthService,
-    Auth0Service,
+   // Auth0Service,
     UserCheckService,
     NotifyService
   ],

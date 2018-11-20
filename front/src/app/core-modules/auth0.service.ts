@@ -1,4 +1,6 @@
-/* 与Auth0验证服务平台集成 */
+/* 与Auth0验证服务平台集成
+ * 因为网络方位Auth0平台被墙，暂停此服务
+*/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';

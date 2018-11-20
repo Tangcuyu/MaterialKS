@@ -25,7 +25,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   ngOnInit() {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-      console.log(this.router.routerState);
+      // console.log(this.router.routerState);
       // --- set i18n begin ---
       this.translateService.addLangs(['zh', 'en']);
       this.translateService.setDefaultLang('zh');

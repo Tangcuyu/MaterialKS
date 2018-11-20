@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import * as Chartist from 'chartist';
 import { NotifyService } from '../core-modules/notify.service';
 import { INotifyConifg, User } from '../core-modules/model';
-import { Auth0Service } from '../core-modules/auth0.service';
+// import { Auth0Service } from '../core-modules/auth0.service';
 // 导入UserService, 从后台获取User列表
 import { UserServiceService } from '../core-modules/user-service.service';
 import { Subscription } from 'rxjs/';
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit,  AfterViewInit, OnDestroy {
   public userList: User;
   public userSubcription: Subscription;
   public error: any;
-  constructor(private userService: UserServiceService, private auth0Service: Auth0Service) {}
+  constructor(private userService: UserServiceService) {}
 
   startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit,  AfterViewInit, OnDestroy {
       (data: User) => this.userList = {...data},
       err => this.error = err
     );
-    this.auth0Service.handleLoginCallback();
+    // this.auth0Service.handleLoginCallback();
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {

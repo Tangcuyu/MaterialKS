@@ -5,6 +5,10 @@ import { UserCheckService } from '../../../core-modules/user-check.service';
 import { AuthService } from '../../../core-modules/auth.service';
 import { Router } from '@angular/router';
 import { User, IUserConfig} from '../../../core-modules/model';
+
+// Import OAuthservice from angular-oauth2-oidc
+import { OAuthService } from 'angular-oauth2-oidc';
+
 // Define animations
 import { slideInAnimation } from '../../../animations';
 import { NotifyService } from '../../../core-modules/notify.service';
@@ -47,8 +51,10 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   public err: string;
 
 
-  constructor(private userService: UserServiceService, private userCheck: UserCheckService,
-    private authService: AuthService, private router: Router, private notify: NotifyService) {}
+  constructor(private oauthService: OAuthService,
+    private authService: AuthService, private router: Router, private notify: NotifyService) {
+    console.log(this.authService);
+    }
 
   login(formAuth: any) {
     this.guest = formAuth.value;
@@ -56,7 +62,8 @@ export class UserAuthComponent implements OnInit, OnDestroy {
     this.sub = this.authService.login(this.guest).subscribe(
         res => {
           this.userConfig = {...res.user};
-          // console.log(this.userConfig);
+          this.authService.isLoggedIn = true;
+
           if (this.authService.isLoggedIn) {
             const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
             // const redirect = 'dashboard';
@@ -69,20 +76,20 @@ export class UserAuthComponent implements OnInit, OnDestroy {
           this.notify.showNotification(notifyconfig);
         }
     );
+  }
 
-    // Get full repsonse from server
-    /* this.userCheck.checkUser(this.guest).subscribe(
-      (resp) => {
-        const keys = resp.headers.keys();
-        this.headers = keys.map(key => `${key}: ${resp.headers.get(key)}`);
-        this.userConfig = { ...resp.body };
-        console.log(this.headers);
-        console.log(this.userConfig);
-      },
-      error => {
-        console.log(error);
-      }
-    ); */
+  public loginWithOIDC() {
+    this.oauthService.initImplicitFlow('/some-state;p1=1;p2=2');
+  }
+
+  public logoffWithOIDC() {
+    this.oauthService.logOut();
+  }
+
+  public get name() {
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) {return null};
+    return claims;
   }
 
 

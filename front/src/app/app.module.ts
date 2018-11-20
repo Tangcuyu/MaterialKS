@@ -8,6 +8,8 @@ import { CoreModulesModule } from './core-modules/core-modules.module'
 
 // import angular-oauth2-oidc
 import { OAuthModule } from 'angular-oauth2-oidc';
+
+// pages模块包含了登录组件和界面
 import { PagesModule } from './pages/pages.module';
 
 // import ngx-translate and the http loader
