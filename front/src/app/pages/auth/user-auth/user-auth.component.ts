@@ -79,7 +79,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   }
 
   public loginWithOIDC() {
-    this.oauthService.initImplicitFlow('/some-state;p1=1;p2=2');
+    this.oauthService.initImplicitFlow();
   }
 
   public logoffWithOIDC() {

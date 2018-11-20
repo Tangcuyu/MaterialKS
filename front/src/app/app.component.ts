@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
   private configureWithNewConfigApi() {
     this.oauthService.configure(authConfig);
     this.oauthService.setStorage(localStorage);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    // this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    // this.oauthService.tokenValidationHandler = new NullValidationHandler();
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
 
     this.oauthService.events.subscribe(e => {

@@ -1,4 +1,4 @@
-/* 验证本地keystone用户名和密码 */
+/* 用户身份验证 */
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs/';
 import { delay, tap, map, catchError } from 'rxjs/operators';
