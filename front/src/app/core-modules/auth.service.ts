@@ -5,10 +5,13 @@ import { delay, tap, map, catchError } from 'rxjs/operators';
 import { UserCheckService } from './user-check.service';
 import { User } from '../core-modules/model';
 import { Router } from '@angular/router';
-// import * as auth0 from 'auth0-js';
-// import { environment } from './../../environments/environment';
 
-// (window as any).global = window;  // TypeScript的声明文件对window扩展
+// Import OAuthservice from angular-oauth2-oidc
+import { OAuthService } from 'angular-oauth2-oidc';
+import { JwksValidationHandler } from 'angular-oauth2-oidc';
+import { authConfig } from '../auth.config';
+import { filter } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -18,16 +21,73 @@ export class AuthService {
 
   //  store the URL so we can redirect after logging in.
   redirectUrl: string;
+
+  // 记录验证成功的用户信息
+  userProfile: User;
+
+  // 记录auth服务是否登录的状态
   isLoggedIn = false;
 
-  constructor(private userCheck: UserCheckService, private router: Router) {}
+  constructor(private userCheck: UserCheckService, private router: Router,
+     private oauthService: OAuthService) {
+    this.configureWithNewConfigApi();
+  }
 
-  login(formAuth: User): Observable<any> {
+  // 使用本地用户名密码验证登录
+  public login(formAuth: User): Observable<any> {
     return this.userCheck.checkUser(formAuth);
   }
 
-  logout(): void {
+  // Okta验证服务初始化配置
+  private configureWithNewConfigApi() {
+    this.oauthService.configure(authConfig);
+    this.oauthService.setStorage(localStorage);
+    this.oauthService.requestAccessToken = true;
+    localStorage.setItem('requestAccessToken', '' + true);
+    console.log('app component localStorage:' + localStorage.getItem('requestAccessToken'));
+    // this.oauthService.tokenValidationHandler = new NullValidationHandler();
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+
+    this.oauthService.events.subscribe(e => {
+      // tslint:disable-next-line:no-console
+      console.debug('oauth/oidc event', e);
+    });
+
+    this.oauthService.events
+      .pipe(filter(e => e.type === 'session_terminated'))
+      .subscribe(e => {
+        // tslint:disable-next-line:no-console
+        console.debug('Your session has been terminated!');
+      });
+
+    this.oauthService.events
+      .pipe(filter(e => e.type === 'token_received'))
+      .subscribe(e => {
+        // this.oauthService.loadUserProfile();
+      });
+  }
+
+
+  // 使用Okta的OpenID connect服务，验证登录
+  public loginWithOkta() {
+    this.oauthService.initImplicitFlow();
+    console.log('authService component: okta-' + this.oauthService.hasValidIdToken());
+  }
+
+  public logout(): void {
     this.isLoggedIn = false;
+    this.userProfile = null;
+    this.oauthService.logOut();
     this.router.navigate(['/pages/login']);
+  }
+  public get nameOkta() {
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) { return null };
+    return claims['name'];
+  }
+
+  loadUserProfile(): void {
+    this.oauthService.loadUserProfile().then(up => (this.userProfile = up));
   }
 }

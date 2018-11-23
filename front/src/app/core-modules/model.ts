@@ -1,13 +1,15 @@
 /* Email validation patten "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+(\.[A-Za-z]+)"  */
 
 export interface IUserConfig {
-    email: string;
+    email?: string;
     usersUrl?: string;
     imgfile?: string;
 }
 
 export class User implements IUserConfig {
-    email: '';
+    email?: '';
+    FirstName?: '';
+    SecondName?: '';
 }
 
 export interface INotifyConifg {

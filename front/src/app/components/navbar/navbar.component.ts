@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/co
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+// Import OAuthservice from angular-oauth2-oidc
+import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthService } from '../../core-modules/auth.service';
 
 
@@ -19,10 +21,10 @@ export class NavbarComponent implements OnInit {
 
     @Output() notify: EventEmitter<string> = new EventEmitter();
 
-    constructor(location: Location,  private element: ElementRef, private router: Router, public authService: AuthService) {
+    constructor(location: Location,  private element: ElementRef, private router: Router,
+     public oauthService: OAuthService, public authService: AuthService) {
       this.location = location;
-          this.sidebarVisible = false;
-        console.log(this.authService);
+      this.sidebarVisible = false;
     }
 
     ngOnInit() {
@@ -134,7 +136,19 @@ export class NavbarComponent implements OnInit {
       return 'Dashboard';
     }
 
-    logOut() {
+    public get nameOkta() {
+        const claims = this.oauthService.getIdentityClaims();
+        if (!claims) {
+            if (this.authService.userProfile.email) {
+                return this.authService.userProfile.email;
+            } else {
+                return null;
+            }
+        };
+        return claims['name'];
+    }
+
+    public logOut() {
         this.authService.logout();
     }
 }

@@ -4,7 +4,7 @@
         <form (ngSubmit)="login(authForm.form)" #authForm="ngForm">
           <div class="card card-login">
             <div class="card-header card-header-info text-center">
-              <h4 class="card-title">Log in</h4>
+              <h4 class="card-title">Log in with social acount</h4>
               <div class="social-line">
                 <a class="btn btn-just-icon btn-link btn-white" href="">
                   <i class="fa fa-weixin"></i>
@@ -12,7 +12,7 @@
                 <a class="btn btn-just-icon btn-link btn-white" href="">
                   <i class="fa fa-github"></i>
                 </a>
-                <a class="btn btn-just-icon btn-link btn-white" (click)="loginWithOIDC()">
+                <a class="btn btn-just-icon btn-link btn-white" (click)="loginOkta()">
                   <i class="fa fa-openid"></i>
                 </a>
               </div>

@@ -1,23 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { UserServiceService } from '../../../core-modules/user-service.service';
-import { UserCheckService } from '../../../core-modules/user-check.service';
 import { AuthService } from '../../../core-modules/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 import { User, IUserConfig} from '../../../core-modules/model';
 
-// Import OAuthservice from angular-oauth2-oidc
-import { OAuthService } from 'angular-oauth2-oidc';
-
-// Define animations
+// Define animations 动画定义
 import { slideInAnimation } from '../../../animations';
+
+// 消息提醒服务
 import { NotifyService } from '../../../core-modules/notify.service';
 import { INotifyConifg } from '../../../core-modules/model';
 
-import {
-  AnimationEvent
-} from '@angular/animations';
-import { Subscription } from 'rxjs/';
+
+import { Subscription, Observable } from 'rxjs/';
+import { switchMap } from 'rxjs/operators';
 
 
 declare var $: any;
@@ -39,29 +34,28 @@ const notifyconfig: INotifyConifg = {
 })
 export class UserAuthComponent implements OnInit, OnDestroy {
   public sub: Subscription;
-  public guest: User; // User who will be certified
-  public userConfig: IUserConfig; // Certified user infomation
-  public headers: string[];
-  public isShow: Boolean; // Auth form animation switch
+  // public userConfig: IUserConfig; // Certified user infomation
+  // public headers: string[];
+  public isShow: Boolean; // 验证表单动画显示开关
   public message: string; // log infomation
-  public userName: string;
+  // public userName: string;
   public email: string;
   public password: string;
   public submitted: Boolean = false;
   public err: string;
 
 
-  constructor(private oauthService: OAuthService,
-    private authService: AuthService, private router: Router, private notify: NotifyService) {
-    console.log(this.authService);
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute,
+     private notify: NotifyService) {
+    // console.log(this.authService);
+
     }
 
   login(formAuth: any) {
-    this.guest = formAuth.value;
     if (!formAuth.valid) {return};
-    this.sub = this.authService.login(this.guest).subscribe(
+    this.sub = this.authService.login(formAuth.value).subscribe(
         res => {
-          this.userConfig = {...res.user};
+          this.authService.userProfile = {...res.user};
           this.authService.isLoggedIn = true;
 
           if (this.authService.isLoggedIn) {
@@ -78,20 +72,9 @@ export class UserAuthComponent implements OnInit, OnDestroy {
     );
   }
 
-  public loginWithOIDC() {
-    this.oauthService.initImplicitFlow();
+  public loginOkta() {
+    this.authService.loginWithOkta();
   }
-
-  public logoffWithOIDC() {
-    this.oauthService.logOut();
-  }
-
-  public get name() {
-    const claims = this.oauthService.getIdentityClaims();
-    if (!claims) {return null};
-    return claims;
-  }
-
 
   ngOnInit() {
     // 动画加载登录界面
@@ -99,6 +82,8 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
