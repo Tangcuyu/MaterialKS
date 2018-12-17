@@ -21,10 +21,13 @@
 import * as keystone from 'keystone';
 import * as middleware from './middleware';
 const importRoutes = keystone.importer(__dirname);
+const cors = require('cors');
 
 // Common Middleware
+keystone.pre('bodyparser', cors());
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
+
 
 // Import Route Controllers
 const routes = {
@@ -40,7 +43,7 @@ export = function (app) {
       // app.get('/blog/:category?', routes.views.blog);
       // app.get('/blog/post/:post', routes.views.post);
       // app.get('/gallery', routes.views.gallery);
-      app.all('/front/dist/*', routes.views.index);
+      // app.all('/front/dist/*', routes.views.index);
 
       // File Upload Route
       app.get('/api/fileupload/list', keystone.middleware.api, routes.api.fileupload.list);
