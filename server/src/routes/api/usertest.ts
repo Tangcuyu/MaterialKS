@@ -1,9 +1,12 @@
 const async = require('async'),
-    keystone = require('keystone');
+    keystone = require('keystone'),
+    signin = require('keystone/admin/server/api/session/signin');
 const exec = require('child_process').exec;
 const FileData = keystone.list('FileUpload');
 const jwt = require('jsonwebtoken');
 const secret = 'ILOVENINGHAO';
+const utils = require('keystone-utils');
+const session = require('keystone/lib/session');
 
 /**
  * List Files
@@ -22,8 +25,38 @@ exports.getUserList = function (req, res) {
  * User Login
  */
 exports.userLogin = function (req, res) {
-    const userData = req.body;
-
+    if (!req.body.email || !req.body.password) {
+        return res.status(401).json({ error: 'email and password required' });
+    }
+    const User = keystone.list(keystone.get('user model'));
+    const emailRegExp = new RegExp('^' + utils.escapeRegExp(req.body.email) + '$', 'i');
+    User.model.findOne({ email: emailRegExp }).exec(function (err, user) {
+        if (user) {
+            keystone.callHook(user, 'pre:signin', function (err) {
+                if (err) return res.status(500).json({ error: 'pre:signin error', detail: err });
+                user._.password.compare(req.body.password, function (err, isMatch) {
+                    if (isMatch) {
+                        session.signinWithUser(user, req, res, function () {
+                            keystone.callHook(user, 'post:signin', function (err) {
+                                if (err) return res.status(500).json({ error: 'post:signin error', detail: err });
+                                res.json({ success: true, user: user });
+                            });
+                        });
+                    } else if (err) {
+                        return res.status(500).json({ error: 'bcrypt error', detail: err });
+                    } else {
+                        return res.status(401).json({ error: 'invalid details' });
+                    }
+                });
+            });
+        } else if (err) {
+            return res.status(500).json({ error: 'database error', detail: err });
+        } else {
+            return res.status(401).json({ error: 'invalid details' });
+        }
+    });
+    /* const userData = req.body;
+    console.log(signin);
     keystone.list('User').model.findOne({email: userData.email}).exec(
         (error, user) => {
             if (error) {
@@ -40,7 +73,7 @@ exports.userLogin = function (req, res) {
                         res.status(200).send({ token });
                     }
             }
-        });
+        }); */
 };
 
 

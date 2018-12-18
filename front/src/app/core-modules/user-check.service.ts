@@ -7,8 +7,8 @@ import { catchError, retry, map } from 'rxjs/operators';
 import { throwError } from 'rxjs/';
 
 
-const configUrl = 'http://localhost:3000/keystone/api/session/signin';
-// const configUrl = 'http://localhost:3000/api/usertest';
+// const configUrl = 'http://localhost:3000/keystone/api/session/signin';
+const configUrl = 'http://localhost:3000/api/usertest';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
