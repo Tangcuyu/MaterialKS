@@ -47,7 +47,6 @@ export class UserAuthComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute,
      private notify: NotifyService) {
-    // console.log(this.authService);
 
     }
 
@@ -55,7 +54,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
     if (!formAuth.valid) {return};
     this.sub = this.authService.login(formAuth.value).subscribe(
         res => {
-          this.authService.userProfile = {...res.user};
+          localStorage.setItem('token', res);
           this.authService.isLoggedIn = true;
 
           if (this.authService.isLoggedIn) {
@@ -73,7 +72,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   }
 
   public loginOkta() {
-    this.authService.loginWithOkta();
+    // this.authService.loginWithOkta();
   }
 
   ngOnInit() {

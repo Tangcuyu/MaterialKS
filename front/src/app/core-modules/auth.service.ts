@@ -7,9 +7,9 @@ import { User } from '../core-modules/model';
 import { Router } from '@angular/router';
 
 // Import OAuthservice from angular-oauth2-oidc
-import { OAuthService } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc';
-import { authConfig } from '../auth.config';
+// import { OAuthService } from 'angular-oauth2-oidc';
+// import { JwksValidationHandler } from 'angular-oauth2-oidc';
+// import { authConfig } from '../auth.config';
 import { filter } from 'rxjs/operators';
 
 
@@ -28,9 +28,8 @@ export class AuthService {
   // 记录auth服务是否登录的状态
   isLoggedIn = false;
 
-  constructor(private userCheck: UserCheckService, private router: Router,
-     private oauthService: OAuthService) {
-    this.configureWithNewConfigApi();
+  constructor(private userCheck: UserCheckService, private router: Router) {
+    // this.configureWithNewConfigApi();
   }
 
   // 使用本地用户名密码验证登录
@@ -39,7 +38,7 @@ export class AuthService {
   }
 
   // Okta验证服务初始化配置
-  private configureWithNewConfigApi() {
+  /* private configureWithNewConfigApi() {
     this.oauthService.configure(authConfig);
     this.oauthService.setStorage(localStorage);
     this.oauthService.requestAccessToken = true;
@@ -66,28 +65,28 @@ export class AuthService {
       .subscribe(e => {
         // this.oauthService.loadUserProfile();
       });
-  }
+  } */
 
 
   // 使用Okta的OpenID connect服务，验证登录
-  public loginWithOkta() {
+  /* public loginWithOkta() {
     this.oauthService.initImplicitFlow();
     console.log('authService component: okta-' + this.oauthService.hasValidIdToken());
-  }
+  } */
 
   public logout(): void {
     this.isLoggedIn = false;
     this.userProfile = null;
-    this.oauthService.logOut();
+    // this.oauthService.logOut();
     this.router.navigate(['/pages/login']);
   }
-  public get nameOkta() {
+  /* public get nameOkta() {
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) { return null };
     return claims['name'];
-  }
+  } */
 
-  loadUserProfile(): void {
+  /* loadUserProfile(): void {
     this.oauthService.loadUserProfile().then(up => (this.userProfile = up));
-  }
+  } */
 }

@@ -39,7 +39,8 @@ const routes = {
 export = function (app) {
       // Views
       app.get('/', routes.views.index);
-      app.get('/api/usertest', routes.api.usertest.getUserList);
+      // app.get('/api/usertest', routes.api.usertest.getUserList);
+      app.post('/api/usertest', routes.api.usertest.userLogin);
       // app.get('/blog/:category?', routes.views.blog);
       // app.get('/blog/post/:post', routes.views.post);
       // app.get('/gallery', routes.views.gallery);
