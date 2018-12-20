@@ -54,14 +54,10 @@ export class UserAuthComponent implements OnInit, OnDestroy {
     if (!formAuth.valid) {return};
     this.sub = this.authService.login(formAuth.value).subscribe(
         res => {
-          localStorage.setItem('token', res);
-          this.authService.isLoggedIn = true;
-
-          if (this.authService.isLoggedIn) {
-            const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
-            // const redirect = 'dashboard';
-            this.router.navigate([redirect]);
-          }
+          localStorage.setItem('token', res.token);
+          const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';
+          // const redirect = 'dashboard';
+          this.router.navigate([redirect]);
         },
         error => {
           this.err = error;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/observable';
 import { AuthService } from './auth.service';
 
 @Injectable(
+  {providedIn: 'root'}
 )
 export class AuthGuardService implements CanActivate {
 
@@ -16,14 +17,12 @@ export class AuthGuardService implements CanActivate {
 
   checkLogin(url: string): boolean {
 
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isLoggedIn()) {
       return true;
     }
     // Store the attamped URL for redirecting
     this.authService.redirectUrl = url;
-
     this.router.navigate(['/pages/login']);
-
     return false;
   }
 

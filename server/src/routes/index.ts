@@ -39,13 +39,8 @@ const routes = {
 export = function (app) {
       // Views
       app.get('/', routes.views.index);
-      // app.get('/api/usertest', routes.api.usertest.getUserList);
+      app.get('/api/userlist', routes.api.usertest.verifyToken, routes.api.usertest.getUserList);
       app.post('/api/usertest', routes.api.usertest.userLogin);
-      // app.get('/blog/:category?', routes.views.blog);
-      // app.get('/blog/post/:post', routes.views.post);
-      // app.get('/gallery', routes.views.gallery);
-      // app.all('/front/dist/*', routes.views.index);
-
       // File Upload Route
       app.get('/api/fileupload/list', keystone.middleware.api, routes.api.fileupload.list);
       app.get('/api/fileupload/:id', keystone.middleware.api, routes.api.fileupload.get);
@@ -53,6 +48,14 @@ export = function (app) {
       app.all('/api/fileupload/create', keystone.middleware.api, routes.api.fileupload.create);
       app.get('/api/fileupload/:id/remove', keystone.middleware.api, routes.api.fileupload.remove);
         // ...TO HERE.
+      // app.get('/blog/:category?', routes.views.blog);
+      // app.get('/blog/post/:post', routes.views.post);
+      // app.get('/gallery', routes.views.gallery);
+      /*
+        This api can get reqest header in browser
+      */
+      // app.get('/api/reqheader', routes.api.reqheader.getHeaders);
+      // app.all('/front/dist/*', routes.views.index);
 
       // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
       // app.get('/protected', middleware.requireUser, routes.views.protected);

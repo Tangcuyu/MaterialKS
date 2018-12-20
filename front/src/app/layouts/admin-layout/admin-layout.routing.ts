@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { AuthGuardService } from '../../core-modules/auth-guard.service';
+
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
@@ -54,7 +56,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard', component: DashboardComponent, data: { animation: 'dashboard' }},
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
+    { path: 'table-list', component: TableListComponent, canActivate: [AuthGuardService]},
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },

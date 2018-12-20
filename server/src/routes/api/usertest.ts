@@ -9,7 +9,7 @@ const utils = require('keystone-utils');
 const session = require('keystone/lib/session');
 
 /**
- * List Files
+ * List Users
  */
 exports.getUserList = function (req, res) {
         keystone.list('User').model.find().sort('name').exec( function (err, results) {
@@ -20,6 +20,24 @@ exports.getUserList = function (req, res) {
         });
 };
 
+exports.verifyToken = function (req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(401).send('Unauthorized request');
+    }
+    const token = req.headers.authorization.split(' ')[1];
+
+    // console.log(token);
+    if (token === 'null') {
+        return res.status(401).send('Unauthorized request');
+    }
+
+    const payload = jwt.verify(token, secret);
+    if (!payload) {
+        return res.status(401).send('Unauthorized request');
+    }
+    req.userId = payload.subject;
+    next();
+};
 
 /**
  * User Login
@@ -36,12 +54,16 @@ exports.userLogin = function (req, res) {
                 if (err) return res.status(500).json({ error: 'pre:signin error', detail: err });
                 user._.password.compare(req.body.password, function (err, isMatch) {
                     if (isMatch) {
-                        session.signinWithUser(user, req, res, function () {
+                        /* session.signinWithUser(user, req, res, function () {
                             keystone.callHook(user, 'post:signin', function (err) {
                                 if (err) return res.status(500).json({ error: 'post:signin error', detail: err });
                                 res.json({ success: true, user: user });
                             });
-                        });
+                        }); */
+                        const payload = { subject: user._id };
+                        const token = jwt.sign(payload, secret);
+                        console.log(token);
+                        res.status(200).send({token});
                     } else if (err) {
                         return res.status(500).json({ error: 'bcrypt error', detail: err });
                     } else {

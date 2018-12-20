@@ -136,7 +136,7 @@ export class NavbarComponent implements OnInit {
       return 'Dashboard';
     }
 
-    public get nameOkta() {
+   /*  public get nameOkta() {
         const claims = this.oauthService.getIdentityClaims();
         if (!claims) {
             if (this.authService.userProfile.email) {
@@ -146,7 +146,7 @@ export class NavbarComponent implements OnInit {
             }
         };
         return claims['name'];
-    }
+    } */
 
     public logOut() {
         this.authService.logout();

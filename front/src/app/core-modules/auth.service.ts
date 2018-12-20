@@ -12,21 +12,14 @@ import { Router } from '@angular/router';
 // import { authConfig } from '../auth.config';
 import { filter } from 'rxjs/operators';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   //  store the URL so we can redirect after logging in.
   redirectUrl: string;
-
-  // 记录验证成功的用户信息
   userProfile: User;
-
-  // 记录auth服务是否登录的状态
-  isLoggedIn = false;
+  // isLoggedIn = false;
 
   constructor(private userCheck: UserCheckService, private router: Router) {
     // this.configureWithNewConfigApi();
@@ -35,6 +28,19 @@ export class AuthService {
   // 使用本地用户名密码验证登录
   public login(formAuth: User): Observable<any> {
     return this.userCheck.checkUser(formAuth);
+  }
+
+  public isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
+
+  public logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/pages/login']);
+  }
+
+  public getToken() {
+    return localStorage.getItem('token');
   }
 
   // Okta验证服务初始化配置
@@ -74,12 +80,7 @@ export class AuthService {
     console.log('authService component: okta-' + this.oauthService.hasValidIdToken());
   } */
 
-  public logout(): void {
-    this.isLoggedIn = false;
-    this.userProfile = null;
-    // this.oauthService.logOut();
-    this.router.navigate(['/pages/login']);
-  }
+
   /* public get nameOkta() {
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) { return null };

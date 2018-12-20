@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 
 // import core serivces for our app
@@ -20,6 +20,8 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TokenInterceptorService } from './core-modules/token-interceptor.service';
+
 
 // import { DashboardComponent } from './dashboard/dashboard.component';
 // import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -64,7 +66,11 @@ import { SharedModule } from './shared-module/shared-module.module';
     AdminLayoutComponent,
     PageNotFoundComponent
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -11,16 +11,12 @@ import { throwError } from 'rxjs/';
 )
 export class UserServiceService {
 
-  configUrl = '/api/usertest';
+  configUrl = 'http://localhost:3000/api/userlist';
 
   constructor(private http: HttpClient) { }
 
   getConfig() {
-    return this.http.get<User>(this.configUrl)
-    .pipe(
-      retry(3), // retry a failed request up to 3 times
-      catchError(this.handelError)
-    );
+    return this.http.get<User>(this.configUrl);
   }
 
   private handelError(error: HttpErrorResponse): Observable<HttpResponse<User>> {
