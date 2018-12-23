@@ -15,8 +15,7 @@ export class TableListComponent implements OnInit {
   ngOnInit() {
     this._userService.getConfig()
         .subscribe(
-          res => { this.userList = res
-          console.log(res)},
+          res => { this.userList = res},
           err => console.log(err)
         )
   }
