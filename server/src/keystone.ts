@@ -36,6 +36,7 @@ keystone.init(<any>{
     'session': true,
     'auth': true,
     'user model': 'User',
+    'csrf_token_key': 'dtdxcg',
 });
 
 // Load your project's Models
@@ -58,6 +59,11 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
     posts: ['posts', 'post-categories'],
+    ecommerce: ['Address', 'Brand', 'Classification', 'Country',
+        'Image', 'LineItem', 'OptionType', 'OptionValue', 'Order',
+        'PaymentMode', 'Payment', 'Price', 'ProductProperty', 'Product',
+        'RatingCategory', 'RatingOptionVote', 'RatingOption', 'RatingSummary',
+        'ReviewList', 'Review', 'State', 'Stripe', 'Taxon', 'Taxonomy', 'Variant'],
     galleries: 'galleries',
     enquiries: 'enquiries',
     users: 'users',
