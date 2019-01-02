@@ -50,6 +50,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
 
     }
 
+
   login(formAuth: any) {
     if (!formAuth.valid) {return};
     this.sub = this.authService.login(formAuth.value).subscribe(
